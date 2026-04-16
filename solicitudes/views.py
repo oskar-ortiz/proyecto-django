@@ -1,3 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
-# Create your views here.
+from .forms import SolicitudForm
+
+
+def registrar_solicitud(request):
+    if request.method == "POST":
+        form = SolicitudForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("solicitudes:confirmacion")
+    else:
+        form = SolicitudForm()
+
+    return render(request, "solicitudes/formulario.html", {"form": form})
+
+
+def confirmacion_solicitud(request):
+    return render(request, "solicitudes/confirmacion.html")
