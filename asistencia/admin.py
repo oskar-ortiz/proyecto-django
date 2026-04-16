@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Asistencia
+
+
+@admin.register(Asistencia)
+class AsistenciaAdmin(admin.ModelAdmin):
+    list_display = ("nombre_estudiante", "codigo_estudiante", "fecha", "estado")
+    list_filter = ("estado", "fecha")
+    search_fields = ("nombre_estudiante", "codigo_estudiante")
